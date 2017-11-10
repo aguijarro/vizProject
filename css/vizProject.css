@@ -1,0 +1,32 @@
+.vizProject-dashboard {
+  background: #f2f2f2;
+  font-family: 'Gotham Rounded SSm A', 'Gotham Rounded SSm B', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.vizProject-dataviz {
+  background: #fff;
+  border: 1px solid #e7e7e7;
+  border-radius: 2px;
+  box-sizing: border-box;
+}
+.vizProject-dataviz-title {
+  border-bottom: 1px solid #e7e7e7;
+  border-radius: 2px 2px 0 0;
+  font-size: 15px;
+  padding: 2px 10px 0;
+  text-transform: uppercase;
+}
+
+
+.vizProject-dataviz-stage {
+  padding: 10px;
+}
+
+.vizProject-dataviz-notes {
+  background: #fbfbfb;
+  border-radius: 0 0 2px 2px;
+  border-top: 1px solid #e7e7e7;
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 11px;
+  padding: 0 10px;
+}
