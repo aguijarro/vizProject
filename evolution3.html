@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://dimplejs.org/dist/dimple.v2.0.0.min.js"></script>
+  <title>Evolution</title>
+  <script type="text/javascript">
+
+    function draw(geo_data){
+      "use strict";
+      var width = 950, height = 600, margin = 75;
+
+
+      var svg = d3.select('body')
+                .append('svg')
+                .attr({
+                  width : width,
+                  height : height
+                })
+                .append('g');
+
+     var projection = d3.geo.albersUsa()
+                             .scale([width])
+                             .translate([width / 2, height / 2]);
+
+
+      var path = d3.geo.path().projection(projection);
+
+      svg.selectAll('path')
+          .data(geo_data.features)
+          .enter()
+          .append('path')
+          .attr('d', path)
+          .style('fill', 'lightBlue')
+          .style('stroke', 'black')
+          .style('stroke-width', 0.5);
+
+        function plot_points(data) {
+
+            //function show_info(airport){
+
+            //};
+
+            console.log(data)
+
+            function agg_airport(leaves) {
+                console.log(leaves)
+
+                var total = d3.sum(leaves, function(d) {
+                    return +d['flights'];
+                });
+
+                var coords = leaves.map(function(d) {
+                    return projection([+d.long, +d.lat]);
+                });
+
+                var center_x = d3.mean(coords, function(d) {
+                    return d[0];
+                });
+
+                var center_y = d3.mean(coords, function(d) {
+                    return d[1];
+                });
+
+                return {
+                  'flights' : total,
+                  'x' : center_x,
+                  'y' : center_y
+                };
+            }
+
+            var nested = d3.nest()
+                           .key(function(d) {
+                              return d['airport'];
+                           })
+                           .rollup(agg_airport)
+                           .entries(data);
+
+            var attendance_extent = d3.extent(nested, function(d){
+              return d.values.flights;
+            });
+
+            var radius = d3.scale.sqrt()
+                          .domain(attendance_extent)
+                          .range([0,12]);
+
+
+            svg.append('g')
+               .attr('class', 'bubble')
+               .selectAll('circle')
+               .data(nested.sort(function(a,b){
+                  return b.values.flights - a.values.flights
+               }))
+               .enter()
+               .append('circle')
+               .attr('cx', function(d){ return d.values.x;})
+               .attr('cy', function(d){ return d.values.y;})
+               .attr('r', function(d){
+                  return radius(d.values.flights);
+               })
+               .attr('fill', 'rgb(247, 148, 32)')
+               .attr('stroke', 'black')
+               .attr('stroke-width', 0.7)
+               .attr('opacity', 0.7)
+ //              .on("mouseover", function(d){
+               .on("mousedown", function(d){
+                    d3.select(this)
+                        .transition()
+                        .attr('r', function(d){
+                           return "25px";
+                    });
+                    d3.select('#chart')
+                      .append('div')
+                      .attr('id','details')
+                      .text(d)
+                    })
+//               .on("mouseout", function(d){
+               .on("mouseup", function(d){
+                    d3.select(this)
+                        .transition()
+                        .attr('r', function(d){
+                          return radius(d.values.flights);
+                        });
+
+                    d3.select('#details').remove()
+
+
+               });
+        }
+
+
+        d3.json("/data/top25_airports.json", plot_points);
+
+    };
+
+  </script>
+</head>
+<body>
+  <script type="text/javascript">
+    d3.json("/data/us-states.json",draw)
+  </script>
+  <h1>USA airports frequency</h1>
+  <h2></h2>
+  <div id='chart'></div>
+</body>
+</html>
