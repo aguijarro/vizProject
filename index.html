@@ -2,8 +2,10 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <script src="http://d3js.org/d3.v3.min.js"></script>
-  <script src="http://dimplejs.org/dist/dimple.v2.0.0.min.js"></script>
+  <script src="http://d3js.org/d3.v4.min.js"></script>
+  <script src="http://d3js.org/queue.v1.min.js"></script>
+  <script src="http://dimplejs.org/dist/dimple.v2.3.0.min.js"></script>
+
 
   <style>
     circle.dimple-series-0{
@@ -15,7 +17,19 @@
   </style>
 
     <script type="text/javascript">
-      function draw(data) {
+      function draw(error, data) {
+
+        year_flights = data[0]
+
+        cancelled_flights = data[1]
+
+        month_flights = data[2]
+
+        day_months_flights = data[3]
+
+        console.log("cancelled_flights")
+        console.log(cancelled_flights)
+        console.log(cancelled_flights['total'])
 
       /*
         D3.js setup code
@@ -67,45 +81,38 @@
         Dimple.js Chart construction code
       */
 
-          var myChart = new dimple.chart(svg, data);
-          var x = myChart.addTimeAxis("x", "month");
+
+          var myChart = new dimple.chart(svg, year_flights);
+          myChart.setBounds(100, 70, 650, 250)
+          var x = myChart.addCategoryAxis("x", "year");
+          x.addOrderRule("Date");
+          myChart.addColorAxis("c", "yellow");
           myChart.addMeasureAxis("y", "total");
-          x.dateParseFormat = "%m";
-          x.tickFormat = "%m";
-          //x.timeInterval = 4;
-          myChart.addSeries(null, dimple.plot.scatter);
-          myChart.addSeries(null, dimple.plot.line);
-          /*myChart.addSeries(null, dimple.plot.line);*/
-          /*myChart.addSeries('stage', dimple.plot.line);*/
+          myChart.addSeries(null, dimple.plot.bar);
           myChart.draw();
 
-          var myChart2 = new dimple.chart(svg2, data);
-          var x = myChart2.addTimeAxis("x", "month");
-          myChart2.addMeasureAxis("y", "total");
-          x.dateParseFormat = "%m";
-          x.tickFormat = "%m";
-          //x.timeInterval = 4;
-          myChart2.addSeries(null, dimple.plot.scatter);
-          myChart2.addSeries(null, dimple.plot.line);
-          /*myChart.addSeries(null, dimple.plot.line);*/
-          /*myChart.addSeries('stage', dimple.plot.line);*/
+
+          var myChart2 = new dimple.chart(svg2, cancelled_flights);
+          myChart2.setBounds(20, 60, 360, 260)
+          myChart2.addMeasureAxis("p", "percent");
+          myChart2.addSeries("cancelled", dimple.plot.pie);
+          myChart2.addLegend(500, 20, 90, 300, "right");
           myChart2.draw();
 
 
-          var myChart3 = new dimple.chart(svg3, data);
-          var x = myChart3.addTimeAxis("x", "month");
+          var myChart3 = new dimple.chart(svg3, day_months_flights);
+          var x = myChart3.addTimeAxis("x", "day_of_month");
           myChart3.addMeasureAxis("y", "total");
-          x.dateParseFormat = "%m";
-          x.tickFormat = "%m";
-          //x.timeInterval = 4;
-          myChart3.addSeries(null, dimple.plot.scatter);
-          myChart3.addSeries(null, dimple.plot.line);
+          x.dateParseFormat = "%d";
+          x.tickFormat = "%d";
+          myChart.addColorAxis("c", "orange");
+          myChart.addSeries(null, dimple.plot.bar);
           /*myChart.addSeries(null, dimple.plot.line);*/
           /*myChart.addSeries('stage', dimple.plot.line);*/
           myChart3.draw();
 
 
-          var myChart4 = new dimple.chart(svg4, data);
+          var myChart4 = new dimple.chart(svg4, month_flights);
           var x = myChart4.addTimeAxis("x", "month");
           myChart4.addMeasureAxis("y", "total");
           x.dateParseFormat = "%m";
@@ -118,7 +125,7 @@
           myChart4.draw();
 
 
-          var myChart5 = new dimple.chart(svg5, data);
+          var myChart5 = new dimple.chart(svg5, month_flights);
           var x = myChart5.addTimeAxis("x", "month");
           myChart5.addMeasureAxis("y", "total");
           x.dateParseFormat = "%m";
@@ -170,14 +177,14 @@
 
       <div class="col-sm-8">
         <div id="chart-01" class="vizProject-dataviz">
-          <div class="vizProject-dataviz-title">Grafico 1</div>
+          <div class="vizProject-dataviz-title">Number of flights per year (Million)</div>
         </div>
         <br>
       </div>
 
       <div class="col-sm-4" >
         <div id="chart-02" class="vizProject-dataviz">
-          <div class="vizProject-dataviz-title">Grafico 2</div>
+          <div class="vizProject-dataviz-title">Number of flights per month (Million)</div>
         </div>
         <br>
       </div>
@@ -219,7 +226,15 @@
     Use D3 (not dimple.js) to load the TSV file
     and pass the contents of it to the draw function
     */
-  d3.json("/data/flights.json", draw);
+ // d3.json("/data/flights.json", draw);
+
+   queue()
+    .defer(d3.json, "/data/year_flights.json")
+    .defer(d3.json, "/data/cancelled.json")
+    .defer(d3.json, "/data/month_flights.json")
+    .defer(d3.json, "/data/day_months_flights.json")
+    .awaitAll(draw);
+
   </script>
 </body>
 </html>
