@@ -30,3 +30,17 @@
   font-size: 11px;
   padding: 0 10px;
 }
+
+.vizProject-title{
+  font-weight:normal;
+  color:#000000;
+  letter-spacing:6pt;
+  word-spacing:-7pt;
+  font-size:57px;
+  text-align:center;
+  font-family:comic sans, comic sans ms, cursive, verdana, arial, sans-serif;
+  line-height:1;
+}
+
+
+

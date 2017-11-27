@@ -55,9 +55,106 @@ def main():
     # Make database connection
     conn = connect_db(USER, PASSWORD)
     # Query Data
-    statement = "select month, count(flight_num) total \
+
+    year_st = "select year, count(id) total \
+               from flights group by year;"
+
+    year_rt = make_query(conn, year_st)
+
+    month_st = "select month, count(id) total \
                  from flights group by month;"
-    result = make_query(conn, statement)
+    month_rt = make_query(conn, month_st)
+
+    day_month_st = "select day_of_month, count(id) total \
+                 from flights group by day_of_month;"
+    day_month_rt = make_query(conn, day_month_st)
+
+
+    day_week_st = "select day_of_week, count(id) total \
+                   from flights group by day_of_week;"
+    day_week_rt = make_query(conn, day_week_st)
+
+    carrier_year_st = "(select f.year, c.description, count(f.id) total\
+                        from flights f, carriers c\
+                        where f.unique_carrier = c.code\
+                        and f.year = '2000'\
+                        group by f.year, c.description\
+                        order by count(f.id) desc\
+                        limit 5)\
+                        UNION\
+                        (select f.year, c.description, count(f.id) total\
+                        from flights f, carriers c\
+                        where f.unique_carrier = c.code\
+                        and f.year = '2001'\
+                        group by f.year, c.description\
+                        order by count(f.id) desc\
+                        limit 5)\
+                        UNION\
+                        (select f.year, c.description, count(f.id) total\
+                        from flights f, carriers c\
+                        where f.unique_carrier = c.code\
+                        and f.year = '2002'\
+                        group by f.year, c.description\
+                        order by count(f.id) desc\
+                        limit 5)\
+                        UNION\
+                        (select f.year, c.description, count(f.id) total\
+                        from flights f, carriers c\
+                        where f.unique_carrier = c.code\
+                        and f.year = '2003'\
+                        group by f.year, c.description\
+                        order by count(f.id) desc\
+                        limit 5)\
+                        UNION\
+                        (select f.year, c.description, count(f.id) total\
+                        from flights f, carriers c\
+                        where f.unique_carrier = c.code\
+                        and f.year = '2004'\
+                        group by f.year, c.description\
+                        order by count(f.id) desc\
+                        limit 5)\
+                        UNION\
+                        (select f.year, c.description, count(f.id) total\
+                        from flights f, carriers c\
+                        where f.unique_carrier = c.code\
+                        and f.year = '2005'\
+                        group by f.year, c.description\
+                        order by count(f.id) desc\
+                        limit 5)\
+                        UNION\
+                        (select f.year, c.description, count(f.id) total\
+                        from flights f, carriers c\
+                        where f.unique_carrier = c.code\
+                        and f.year = '2006'\
+                        group by f.year, c.description\
+                        order by count(f.id) desc\
+                        limit 5)\
+                        UNION\
+                        (select f.year, c.description, count(f.id) total\
+                        from flights f, carriers c\
+                        where f.unique_carrier = c.code\
+                        and f.year = '2007'\
+                        group by f.year, c.description\
+                        order by count(f.id) desc\
+                        limit 5)\
+                        UNION\
+                        (select f.year, c.description, count(f.id) total\
+                        from flights f, carriers c\
+                        where f.unique_carrier = c.code\
+                        and f.year = '2008'\
+                        group by f.year, c.description\
+                        order by count(f.id) desc\
+                        limit 5);"
+    carrier_year_rt = make_query(conn, carrier_year_st)
+
+    top5_carriers_rs = "select c.description, count(f.id) total\
+                       from flights f, carriers c\
+                       where f.unique_carrier = c.code\
+                       group by c.description\
+                       order by count(f.id) desc\
+                       limit 5"
+
+    top5_carriers_rt = make_query(conn, top5_carriers_rs)
 
     airport_st = "select iata, airport, city, state, lat, long\
                   from airports\
@@ -85,10 +182,48 @@ def main():
 
     top25_airport_rt = make_query(conn, top25_airport_st)
 
-    # Create json file
-    create_json_file(result, UPLOAD_FOLDER, "flights.json")
+
+    year_cancelled_st = "select f.year, f.cancelled, count(f.id) total\
+                         from flights f\
+                         group by f.year, f.cancelled;"
+
+    year_cancelled_rt = make_query(conn, year_cancelled_st)
+
+
+    year_cancelled_code_st = "select f.year, f.cancellation_code, count(f.id) total\
+                              from flights f\
+                              group by f.year, f.cancellation_code;"
+
+    year_cancelled_code_rt = make_query(conn, year_cancelled_code_st)
+
+
+    cancelled_code_st = "select f.cancellation_code, count(f.id) total\
+                         from flights f\
+                         group by f.cancellation_code;"
+
+    cancelled_code_rt = make_query(conn, cancelled_code_st)
+
+
+    cancelled_st = "select f.cancelled, count(f.id) total\
+                    from flights f\
+                    group by f.cancelled;"
+
+    cancelled_rt = make_query(conn, cancelled_st)
+
+    #Create json file
+    create_json_file(year_rt, UPLOAD_FOLDER, "year_flights.json")
+    create_json_file(month_rt, UPLOAD_FOLDER, "month_flights.json")
+    create_json_file(day_month_rt, UPLOAD_FOLDER, "day_months_flights.json")
+    create_json_file(day_week_rt, UPLOAD_FOLDER, "day_week_flights.json")
+    create_json_file(carrier_year_rt, UPLOAD_FOLDER, "carrier_year.json")
+    create_json_file(carrier_year_rt, UPLOAD_FOLDER, "top5_carriers.json")
     create_json_file(airport_rt, UPLOAD_FOLDER, "airports.json")
     create_json_file(top25_airport_rt, UPLOAD_FOLDER, "top25_airports.json")
+    create_json_file(year_cancelled_rt, UPLOAD_FOLDER, "year_cancelled.json")
+    create_json_file(year_cancelled_code_rt, UPLOAD_FOLDER, "year_cancelled_code.json")
+    create_json_file(cancelled_code_rt, UPLOAD_FOLDER, "cancelled_code.json")
+    create_json_file(cancelled_rt, UPLOAD_FOLDER, "cancelled.json")
+
     # Close database connection
     close_db(conn)
 

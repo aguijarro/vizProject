@@ -23,13 +23,22 @@
 
         cancelled_flights = data[1]
 
-        month_flights = data[2]
+        year_cancelled_flights = data[2]
 
-        day_months_flights = data[3]
+        cancelled_code_flights = data[3]
 
-        console.log("cancelled_flights")
-        console.log(cancelled_flights)
-        console.log(cancelled_flights['total'])
+        year_cancelled_code_flights = data[4]
+
+        year_cancel_cod_cln_flights = data[5]
+
+        top5_carriers_flights = data[6]
+
+        month_flights = data[7]
+
+        day_months_flights = data[8]
+
+        day_week_flights = data[9]
+
 
       /*
         D3.js setup code
@@ -45,37 +54,52 @@
           var svg = d3.select("#chart-01")
             .append("svg")
               .attr("width", "100%")
-              .attr("height", "400px")
-            .append('g')
-                .attr('class','chart');
+              .attr("height", "400px");
 
           var svg2 = d3.select("#chart-02")
             .append("svg")
               .attr("width", "100%")
-              .attr("height", "400px")
-            .append('g')
-                .attr('class','chart');
+              .attr("height", "400px");
 
           var svg3 = d3.select("#chart-03")
             .append("svg")
               .attr("width", "100%")
-              .attr("height", "400px")
-            .append('g')
-                .attr('class','chart');
+              .attr("height", "400px");
 
           var svg4 = d3.select("#chart-04")
             .append("svg")
               .attr("width", "100%")
-              .attr("height", "400px")
-            .append('g')
-                .attr('class','chart');
+              .attr("height", "400px");
 
           var svg5 = d3.select("#chart-05")
             .append("svg")
               .attr("width", "100%")
-              .attr("height", "400px")
-            .append('g')
-                .attr('class','chart');
+              .attr("height", "400px");
+
+          var svg6 = d3.select("#chart-06")
+            .append("svg")
+              .attr("width", "100%")
+              .attr("height", "400px");
+
+          var svg7 = d3.select("#chart-07")
+            .append("svg")
+              .attr("width", "100%")
+              .attr("height", "400px");
+
+          var svg8 = d3.select("#chart-08")
+            .append("svg")
+              .attr("width", "100%")
+              .attr("height", "400px");
+
+          var svg9 = d3.select("#chart-09")
+            .append("svg")
+              .attr("width", "100%")
+              .attr("height", "400px");
+
+          var svg10 = d3.select("#chart-10")
+            .append("svg")
+              .attr("width", "100%")
+              .attr("height", "400px");
 
       /*
         Dimple.js Chart construction code
@@ -86,9 +110,14 @@
           myChart.setBounds(100, 70, 650, 250)
           var x = myChart.addCategoryAxis("x", "year");
           x.addOrderRule("Date");
-          myChart.addColorAxis("c", "yellow");
           myChart.addMeasureAxis("y", "total");
           myChart.addSeries(null, dimple.plot.bar);
+          myChart.defaultColors = [
+          new dimple.color("#aa9f39", "#aa9f39", 1),
+          new dimple.color("#872d62", "#872d62", 1),
+          new dimple.color("#7d9f35", "#7d9f35", 1),
+          new dimple.color("#4a2d73", "#4a2d73", 1),
+          ];
           myChart.draw();
 
 
@@ -96,46 +125,135 @@
           myChart2.setBounds(20, 60, 360, 260)
           myChart2.addMeasureAxis("p", "percent");
           myChart2.addSeries("cancelled", dimple.plot.pie);
-          myChart2.addLegend(500, 20, 90, 300, "right");
+          myChart2.addLegend(150, 350, 90, 300, "right");
+          myChart2.defaultColors = [
+          new dimple.color("#7d9f35", "#7d9f35", 1), // green
+          new dimple.color("#4a2d73", "#4a2d73", 1), // purple
+          new dimple.color("#3498db", "#2980b9", 1), // blue
+          new dimple.color("#e74c3c", "#c0392b", 1), // red
+          new dimple.color("#95a5a6", "#7f8c8d", 1), // gray
+          ];
+
           myChart2.draw();
 
 
-          var myChart3 = new dimple.chart(svg3, day_months_flights);
-          var x = myChart3.addTimeAxis("x", "day_of_month");
+          var myChart3 = new dimple.chart(svg3, year_cancelled_flights);
+          myChart3.setBounds(100, 70, 650, 250)
+          myChart3.addCategoryAxis("x", ["year", "cancelled"]);
           myChart3.addMeasureAxis("y", "total");
-          x.dateParseFormat = "%d";
-          x.tickFormat = "%d";
-          myChart.addColorAxis("c", "orange");
-          myChart.addSeries(null, dimple.plot.bar);
-          /*myChart.addSeries(null, dimple.plot.line);*/
-          /*myChart.addSeries('stage', dimple.plot.line);*/
+          myChart3.addSeries("cancelled", dimple.plot.bar);
+          myChart3.addLegend(350, 365, 510, 20, "left");
+          myChart3.defaultColors = [
+          new dimple.color("#7d9f35", "#7d9f35", 1),
+          new dimple.color("#4a2d73", "#4a2d73", 1),
+          ];
           myChart3.draw();
 
 
-          var myChart4 = new dimple.chart(svg4, month_flights);
-          var x = myChart4.addTimeAxis("x", "month");
-          myChart4.addMeasureAxis("y", "total");
-          x.dateParseFormat = "%m";
-          x.tickFormat = "%m";
-          //x.timeInterval = 4;
-          myChart4.addSeries(null, dimple.plot.scatter);
-          myChart4.addSeries(null, dimple.plot.line);
-          /*myChart.addSeries(null, dimple.plot.line);*/
-          /*myChart.addSeries('stage', dimple.plot.line);*/
+
+          var myChart4 = new dimple.chart(svg4, cancelled_code_flights);
+          myChart4.setBounds(20, 60, 360, 260)
+          myChart4.addMeasureAxis("p", "total");
+          myChart4.addSeries("cancellation_code", dimple.plot.pie);
+          myChart4.addLegend(60, 365, 300, 20, "left");
+          myChart4.defaultColors = [
+          new dimple.color("#872d62", "#872d62", 1),
+          new dimple.color("#aa9f39", "#aa9f39", 1),
+          new dimple.color("#7d9f35", "#7d9f35", 1),
+          new dimple.color("#4a2d73", "#4a2d73", 1),
+          new dimple.color("#3498db", "#2980b9", 1),
+          new dimple.color("#95a5a6", "#7f8c8d", 1),
+          new dimple.color("#e74c3c", "#c0392b", 1),
+          ];
+
           myChart4.draw();
 
 
-          var myChart5 = new dimple.chart(svg5, month_flights);
-          var x = myChart5.addTimeAxis("x", "month");
+          var myChart5 = new dimple.chart(svg5, year_cancelled_code_flights);
+          myChart5.setBounds(100, 70, 650, 250)
+          var x = myChart5.addCategoryAxis("x", "year");
+          x.addOrderRule("Date");
           myChart5.addMeasureAxis("y", "total");
-          x.dateParseFormat = "%m";
-          x.tickFormat = "%m";
-          //x.timeInterval = 4;
-          myChart5.addSeries(null, dimple.plot.scatter);
-          myChart5.addSeries(null, dimple.plot.line);
-          /*myChart.addSeries(null, dimple.plot.line);*/
-          /*myChart.addSeries('stage', dimple.plot.line);*/
+          myChart5.addSeries("cancellation_code", dimple.plot.bar);
+          myChart5.addLegend(300, 365, 300, 20, "left");
           myChart5.draw();
+
+          var myChart6 = new dimple.chart(svg6, year_cancel_cod_cln_flights);
+          myChart6.setBounds(40, 60, 340, 260)
+          var x = myChart6.addCategoryAxis("x", "year");
+          x.addOrderRule("Date");
+          myChart6.addMeasureAxis("y", "total");
+          myChart6.addSeries("cancellation_code", dimple.plot.bar);
+          myChart6.addLegend(130, 365, 300, 20, "left");
+          myChart6.draw();
+
+/*
+          var myChart7 = new dimple.chart(svg7, top5_carriers_flights);
+          myChart7.setBounds(40, 60, 340, 260)
+          var x = myChart7.addCategoryAxis("x", "year");
+          x.addOrderRule("Date");
+          myChart7.addMeasureAxis("y", "total");
+          myChart7.addSeries("carrier", dimple.plot.bar);
+          myChart7.addLegend(130, 365, 300, 20, "left");
+          myChart7.draw();
+*/
+
+
+          var myChart7 = new dimple.chart(svg7, top5_carriers_flights);
+          myChart7.setBounds(40, 60, 1180, 250)
+          var x = myChart7.addCategoryAxis("x", "year");
+          x.addOrderRule("Date");
+          myChart7.addMeasureAxis("y", "total");
+          myChart7.addMeasureAxis("p", "total");
+          var pies = myChart7.addSeries("carrier", dimple.plot.pie);
+          pies.radius = 20;
+          myChart7.addLegend(100, 350, 1300, 50, "left");
+          myChart7.draw();
+
+
+          var myChart8 = new dimple.chart(svg8,  month_flights);
+          myChart8.setBounds(40, 60, 340, 260)
+          var x = myChart8.addCategoryAxis("x", "month");
+          x.addOrderRule("Date");
+          myChart8.addMeasureAxis("y", "total");
+          myChart8.addSeries(null, dimple.plot.bar);
+          myChart8.defaultColors = [
+          new dimple.color("#aa9f39", "#aa9f39", 1),
+          new dimple.color("#872d62", "#872d62", 1),
+          new dimple.color("#7d9f35", "#7d9f35", 1),
+          new dimple.color("#4a2d73", "#4a2d73", 1),
+          ];
+          myChart8.draw();
+
+
+          var myChart9 = new dimple.chart(svg9,  day_months_flights);
+          myChart9.setBounds(40, 60, 340, 260)
+          var x = myChart9.addCategoryAxis("x", "day_of_month");
+          x.addOrderRule("Date");
+          myChart9.addMeasureAxis("y", "total");
+          myChart9.addSeries(null, dimple.plot.bar);
+          myChart9.defaultColors = [
+          new dimple.color("#872d62", "#872d62", 1),
+          new dimple.color("#7d9f35", "#7d9f35", 1),
+          new dimple.color("#4a2d73", "#4a2d73", 1),
+          new dimple.color("#aa9f39", "#aa9f39", 1),
+          ];
+          myChart9.draw();
+
+          var myChart10 = new dimple.chart(svg10,  day_week_flights);
+          myChart10.setBounds(40, 60, 340, 260)
+          var x = myChart10.addCategoryAxis("x", "day_of_week");
+          x.addOrderRule("Date");
+          myChart10.addMeasureAxis("y", "total");
+          myChart10.addSeries(null, dimple.plot.bar);
+          myChart10.defaultColors = [
+          new dimple.color("#4a2d73", "#4a2d73", 1),
+          new dimple.color("#aa9f39", "#aa9f39", 1),
+          new dimple.color("#872d62", "#872d62", 1),
+          new dimple.color("#7d9f35", "#7d9f35", 1),
+          ];
+          myChart10.draw();
+
         };
       </script>
 
@@ -168,23 +286,70 @@
           <span class="glyphicon glyphicon glyphicon-barcode"></span>
         </a>
         <a class="navbar-brand" href="./">Data Vizualization Project</a>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="map_interaction.html">Map Interaction</a></li>
+        </ul>
       </div>
     </div>
   </div>
 
   <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-sm-12">
+        <h1>Flight Stats.. The site which show the performance of flights over time </h1>
+        <br>
+      </div>
+    </div>
+
     <div class="row">
 
       <div class="col-sm-8">
         <div id="chart-01" class="vizProject-dataviz">
-          <div class="vizProject-dataviz-title">Number of flights per year (Million)</div>
+          <div class="vizProject-dataviz-title">Number of flights by year (Million)</div>
         </div>
         <br>
       </div>
 
       <div class="col-sm-4" >
         <div id="chart-02" class="vizProject-dataviz">
-          <div class="vizProject-dataviz-title">Number of flights per month (Million)</div>
+          <div class="vizProject-dataviz-title">Status of flights 2000 - 2008 (Percentage)</div>
+        </div>
+        <br>
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-sm-8">
+        <div id="chart-03" class="vizProject-dataviz">
+          <div class="vizProject-dataviz-title">Status of flights by Year (Percentage)</div>
+        </div>
+        <br>
+      </div>
+
+      <div class="col-sm-4" >
+        <div id="chart-04" class="vizProject-dataviz">
+          <div class="vizProject-dataviz-title">Flights cancelations by cause</div>
+        </div>
+        <br>
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-sm-8">
+        <div id="chart-05" class="vizProject-dataviz">
+          <div class="vizProject-dataviz-title">Flights cancelations by cause per year</div>
+        </div>
+        <br>
+      </div>
+
+      <div class="col-sm-4" >
+        <div id="chart-06" class="vizProject-dataviz">
+          <div class="vizProject-dataviz-title">Flights cancelations by cause</div>
         </div>
         <br>
       </div>
@@ -193,24 +358,36 @@
 
 
     <div class="row">
+      <div class="col-sm-12">
+        <div id="chart-07" class="vizProject-dataviz">
+          <div class="vizProject-dataviz-title">Top 5 carriers by year</div>
+        </div>
+        <br>
+      </div>
+
+    </div>
+
+
+
+    <div class="row">
 
       <div class="col-sm-4">
-        <div id="chart-03" class="vizProject-dataviz">
-          <div class="vizProject-dataviz-title">Grafico 3</div>
+        <div id="chart-08" class="vizProject-dataviz">
+          <div class="vizProject-dataviz-title">Number of flights by month (Million)</div>
         </div>
         <br>
       </div>
 
       <div class="col-sm-4">
-        <div id="chart-04" class="vizProject-dataviz">
-          <div class="vizProject-dataviz-title">Grafico 4</div>
+        <div id="chart-09" class="vizProject-dataviz">
+          <div class="vizProject-dataviz-title">Number of flights by days of the month (M.)</div>
         </div>
         <br>
       </div>
 
       <div class="col-sm-4" >
-        <div id="chart-05" class="vizProject-dataviz">
-          <div class="vizProject-dataviz-title">Grafico 5</div>
+        <div id="chart-10" class="vizProject-dataviz">
+          <div class="vizProject-dataviz-title">Number of flights by day of week (M.)</div>
         </div>
         <br>
       </div>
@@ -229,10 +406,16 @@
  // d3.json("/data/flights.json", draw);
 
    queue()
-    .defer(d3.json, "/data/year_flights.json")
-    .defer(d3.json, "/data/cancelled.json")
-    .defer(d3.json, "/data/month_flights.json")
-    .defer(d3.json, "/data/day_months_flights.json")
+    .defer(d3.json, "data/year_flights.json")
+    .defer(d3.json, "data/cancelled.json")
+    .defer(d3.json, "data/year_cancelled.json")
+    .defer(d3.json, "data/cancelled_code.json")
+    .defer(d3.json, "data/year_cancelled_code.json")
+    .defer(d3.json, "data/year_cancelled_code_clean.json")
+    .defer(d3.json, "data/top5_carriers.json")
+    .defer(d3.json, "data/month_flights.json")
+    .defer(d3.json, "data/day_months_flights.json")
+    .defer(d3.json, "data/day_week_flights.json")
     .awaitAll(draw);
 
   </script>
