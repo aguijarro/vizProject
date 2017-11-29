@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://dimplejs.org/dist/dimple.v2.0.0.min.js"></script>
+  <title>Evolution</title>
+  <script type="text/javascript">
+
+    function draw(geo_data){
+      "use strict";
+      var width = 950, height = 600, margin = 75;
+
+
+      var svg = d3.select('body')
+                .append('svg')
+                .attr({
+                  width : width,
+                  height : height
+                })
+                .append('g');
+
+     var projection = d3.geo.albersUsa()
+                             .scale([width])
+                             .translate([width / 2, height / 2]);
+
+
+      var path = d3.geo.path().projection(projection);
+
+      svg.selectAll('path')
+          .data(geo_data.features)
+          .enter()
+          .append('path')
+          .attr('d', path)
+          .style('fill', 'lightBlue')
+          .style('stroke', 'black')
+          .style('stroke-width', 0.5);
+
+        function plot_points(data) {
+          var airports = [];
+          var errors = [];
+
+          data.forEach(function(d) {
+
+              var coords = projection([+d['long'], +d['lat']]);
+              airports.push({
+                            'key': d['airport'],
+                            'values' : {
+                                        'long': coords[0],
+                                        'lat': coords[1]
+                                        }
+                            })
+
+          });
+
+          console.log(airports)
+              // add circles to svg
+
+            svg.append('g')
+               .attr("class", "bubble")
+               .selectAll("circle")
+               .data(airports).enter()
+               .append("circle")
+               .attr('cx', function(d){ return d.values.long;})
+               .attr('cy', function(d){ return d.values.lat;})
+               .attr('cr', 5)
+               .attr("r", "2px")
+               .attr("fill", "red");
+
+
+
+/*
+
+         svg.append('g')
+            .selectAll("circle")
+            .data(airports)
+            .enter()
+            .append("circle")
+            .attr("cx", function (d) {  return projection(d)['lat']; })
+            .attr("cy", function (d) {  return projection(d)['long']; })
+            .attr("r", "8px")
+            .attr("fill", "red");
+
+*/
+
+        }
+
+
+
+        d3.json("/data/airports.json", plot_points);
+
+    };
+
+  </script>
+</head>
+<body>
+  <script type="text/javascript">
+    d3.json("/data/us-states.json",draw)
+  </script>
+</body>
+</html>
