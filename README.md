@@ -7,13 +7,13 @@ This data visualization shows the performance of flights over the years 2000 to 
 
 ### Design - explain any design choices you made including changes to the visualization after collecting feedback ###
 
-**Bar Charts.- ** I used bar charts because is one of the more familiar options as it is easy to understand and interpret. Also, I choose this kind of graph because is useful for displaying ordinal categories like years, months, days and it allow me to show comparions between those categories. 
+**Bar Charts.-** I used bar charts because is one of the more familiar options as it is easy to understand and interpret. Also, I choose this kind of graph because is useful for displaying ordinal categories like years, months, days and it allow me to show comparions between those categories. 
 
-** Pie Charts.- ** I also used Pie charts because I was able to show nominal categories like Cancelled Status, or Carriers. This kind of chart let me show percentage or proportional data about some business characteristics. Finally, I choose this graphic because it is good for displaying data for around 6 categories or fewer. 
+**Pie Charts.-** I also used Pie charts because I was able to show nominal categories like Cancelled Status, or Carriers. This kind of chart let me show percentage or proportional data about some business characteristics. Finally, I choose this graphic because it is good for displaying data for around 6 categories or fewer. 
 
-** Stacked Bar Graph.- ** I chose to work with Stacked bars because it let me compare for each the different categories and which of those are the most representative.
+**Stacked Bar Graph.-** I chose to work with Stacked bars because it let me compare for each the different categories and which of those are the most representative.
 
-** Map.- **  I worked with a map to show which is the airport who has the highest number of flights. Moreover, it allows to understand another things like which is the most visited city. As a result, using map let us to deepen the study.
+**Map.-**  I worked with a map to show which is the airport who has the highest number of flights. Moreover, it allows to understand another things like which is the most visited city. As a result, using map let us to deepen the study.
 
 
 ### Feedback - include all feedback you received from others on your visualization from the first sketch to the final visualization ###
@@ -22,23 +22,23 @@ Even though get feedback from other Udacity's students was difficult, I asked fo
 
 #### Feedback 1 ####
 
-** What do you notice in the visualization? **
+**What do you notice in the visualization?**
 
 The analysis performed does not specify data in detail. It shows the information in a general way, however it allows to have an idea about the flights in the United States during the years 2000 and 2008.
 
-** What questions do you have about the data? **
+**What questions do you have about the data?**
 
 There is information that was not filled during the years 2000 to 2003 related to the cancellation reasons of the flights. This allows us to observe that probably during those years there were not all the facilities to store this information. Additionally, during those years it was not important to know why flights were canceled. However, starting in 2003, this information begins to be filled, evidencing greater concern for the actors in this industry to better understand the business. In summary, information management improves.
 
-** What relationships do you notice? **
+**What relationships do you notice?**
 
 The main relationship that can be observed in the data is the decrease in flights during 2002 as a result of the terrorist attacks carried out in 2001.
 
-** What do you think is the main takeaway from this visualization? **
+**What do you think is the main takeaway from this visualization?**
 
 The main characteristics to change between the initial and final version were the colors of the graphics. In that sense it was very important to work on the styles to make the graphics aesthetically perfect.
 
-** Is there something you don’t understand in the graphic? **
+**Is there something you don’t understand in the graphic?**
 
 Although the information in general provides a clear idea, it is important to work with data details because the information can be better understood.
 
@@ -62,35 +62,35 @@ From the visualization and the graphics I can see that there´s an interest on h
 
 It is hard to say anything about the data.  Whatever source it has appears to be important for an airline to benchmark with others, and measure its performance.
 
-** What relationships do you notice? **
+**What relationships do you notice?**
 
 Over the time the relationship could show tendency or problems.  It depends on the measure what we can see or analyze.  Although, to have many years could help making radical decisions on procedures, marketing, human resources, and many other aspects.
 
-** What do you think is the main takeaway from this visualization? **
+**What do you think is the main takeaway from this visualization?**
 
 It could be a little bit simple, with no more than five measures, combining graphics, and parameters to move the graphic through the years or problems.  They should be used for taking decisions, so the takeaway depends on the necessity or the problem to solve
 
-** Is there something you don’t understand in the graphic? **
+**Is there something you don’t understand in the graphic?**
 
 Although the information in general provides a clear idea, it is important to work with data details because the information can be better understood.
 
 ####  Feedback 3 #### 
 
-** What do you notice in the visualization? **
+**What do you notice in the visualization?**
 
 The graphics show general information. However, some of the graphics are not easy to understand, such as: Flight cancellations by cause. There are three graphics with the same title but different information. 
 
-** What questions do you have about the data? **
+**What questions do you have about the data?**
 It seems between 2000 and 2003 there are no data about flights cancellations. This situation could lead to uninformed decisions. I wonder where is the information about delayed flights.
 
-** What relationships do you notice? **
+**What relationships do you notice?**
 There might be relations between flight cancellations and carriers, but it is not showed. On the other hand, it was interesting to see  that flights there are not seasonals. 
 
-** What do you think is the main takeaway from this visualization? **
+**What do you think is the main takeaway from this visualization?**
 Some conclusions are that between 2004 and 2008, the number of flights remain the same. That would be one interesting research. 
 It is also important to know that the information about fligths cancellations is incomplete. So the Aviation authority must implement some measures about it.
 
-** Is there something you don’t understand in the graphic? **
+**Is there something you don’t understand in the graphic?**
 I do not understand the cause's clasification. There are acronyms but with no explanation about what they mean. About the Top 25 airports graphic, I could not find 25 spots.
 
 ### Findings
