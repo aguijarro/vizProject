@@ -45,7 +45,7 @@ Although the information in general provides a clear idea, it is important to wo
 
 ####  Feedback 2 ####
 
-** What do you notice in the visualization? **
+**What do you notice in the visualization?**
 
 From the visualization and the graphics I can see that there´s an interest on how was the performance of an airline, Every graphic tries to show a different parameter as:
  
@@ -58,7 +58,7 @@ From the visualization and the graphics I can see that there´s an interest on h
 7)     8 ok 9 doesn’t say anything because the number doesn’t change
 8)     10 by day the number doesn’t change in the first days, but during the monthsmaybe it has a big difference.
 
-** What questions do you have about the data? **
+**What questions do you have about the data?**
 
 It is hard to say anything about the data.  Whatever source it has appears to be important for an airline to benchmark with others, and measure its performance.
 
