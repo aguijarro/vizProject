@@ -113,7 +113,9 @@
                     d3.select('#chart')
                       .append('div')
                       .attr('id','details')
-                      .text(d)
+                      .append("H5").text(d.key)
+                      .append("H6").text(d.values.x)
+                      .append("H6").text(d.values.y)
                     })
 //               .on("mouseout", function(d){
                .on("mouseup", function(d){
